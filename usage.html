@@ -214,6 +214,26 @@
     In theme customizations
   </a>
   
+    <nav class="md-nav" aria-label="In theme customizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-material-theme" class="md-nav__link">
+    mkdocs-material theme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-theme" class="md-nav__link">
+    mkdocs theme
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -321,6 +341,26 @@
     In theme customizations
   </a>
   
+    <nav class="md-nav" aria-label="In theme customizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-material-theme" class="md-nav__link">
+    mkdocs-material theme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-theme" class="md-nav__link">
+    mkdocs theme
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -354,6 +394,7 @@
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
+  
                 
                 
                   
@@ -368,7 +409,7 @@
 <li><code>{{&nbsp;git_page_authors }}</code> a summary of the authors of a page. Output wrapped in <code>&lt;span class='git-page-authors'&gt;</code></li>
 <li><code>{{&nbsp;git_site_authors }}</code> a summary of all authors of all pages in your site. Output wrapped in <code>&lt;span class='git-site-authors'&gt;</code></li>
 </ul>
-<p>For example, adding <code>{{ git_page_authors }}</code> will insert:</p>
+<p>For example, adding <code>{{ git_page_authors }}</code> could insert:</p>
 <div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;git-page-authors&#39;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;mailto:jane@abc.com&#39;</span><span class="p">&gt;</span>Jane Doe<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;mailto:john@abc.com&#39;</span><span class="p">&gt;</span>John Doe<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </code></pre></div>
 
@@ -378,18 +419,22 @@
 <p><a href="mailto:jane@abc.com">Jane Doe</a>, <a href="mailto:john@abc.com">John Doe</a></p>
 </blockquote>
 <h2 id="in-theme-customizations">In theme customizations</h2>
-<p><a href="https://www.mkdocs.org/">MkDocs</a> offers possibilities to <a href="https://www.mkdocs.org/user-guide/styling-your-docs/#customizing-a-theme">customize an existing theme</a>.</p>
-<p>As an example, if you use <a href="https://github.com/squidfunk/mkdocs-material">mkdocs-material</a> you can implement git-authors by <a href="https://squidfunk.github.io/mkdocs-material/customization/#overriding-template-blocks">overriding a template block</a>:</p>
-<p>1) Create a new file <code>main.html</code> in <code>docs/theme</code>:</p>
+<p><a href="https://www.mkdocs.org/">MkDocs</a> offers possibilities to <a href="https://www.mkdocs.org/user-guide/styling-your-docs/#customizing-a-theme">customize an existing theme</a>. See two examples below:</p>
+<h3 id="mkdocs-material-theme">mkdocs-material theme</h3>
+<p>If you use the <a href="https://github.com/squidfunk/mkdocs-material">mkdocs-material</a> theme you can implement git-authors by <a href="https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks">overriding a template block</a>:</p>
+<p>1) Create a new file <code>main.html</code> in <code>docs/overrides</code>:</p>
 <div class="codehilite"><pre><span></span><code>{% extends &quot;base.html&quot; %}
 
-{% block disqus %}
+{% block content %}
+  {{ super() }}
+
+  {% if git_page_authors %}
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;md-source-date&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">small</span><span class="p">&gt;</span>
-        Authors: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;git-page-authors git-authors&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    {% include &quot;partials/integrations/disqus.html&quot; %}
+      <span class="p">&lt;</span><span class="nt">small</span><span class="p">&gt;</span>
+          Authors: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;git-page-authors git-authors&#39;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;mailto:vinktim@gmail.com&#39;</span><span class="p">&gt;</span>Tim Vink<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  {% endif %}
 {% endblock %}
 </code></pre></div>
 
@@ -397,7 +442,36 @@
 <p>2) In <code>mkdocs.yml</code> make sure to specify the custom directory with the theme overrides:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">theme</span><span class="o">:</span>
     <span class="n">name</span><span class="o">:</span> <span class="n">material</span>
-    <span class="n">custom_dir</span><span class="o">:</span> <span class="n">docs</span><span class="sr">/theme/</span>
+    <span class="n">custom_dir</span><span class="o">:</span> <span class="n">docs</span><span class="o">/</span><span class="n">overrides</span>
+</code></pre></div>
+
+
+<h3 id="mkdocs-theme">mkdocs theme</h3>
+<p>In the default MkDocs theme we can use overriding partials to add the git-authors info below the page content.</p>
+<p>1) Create a new file <code>content.html</code> in <code>docs/overrides</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c">&lt;!-- Overwrites content.html base mkdocs theme, taken from </span>
+<span class="c">https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/content.html --&gt;</span>
+
+{% if page.meta.source %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;source-links&quot;</span><span class="p">&gt;</span>
+    {% for filename in page.meta.source %}
+        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label label-primary&quot;</span><span class="p">&gt;</span>{{ filename }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    {% endfor %}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+
+{{ page.content }}
+
+{% if git_page_authors %}
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">small</span><span class="p">&gt;</span>Authors: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;git-page-authors git-authors&#39;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;mailto:vinktim@gmail.com&#39;</span><span class="p">&gt;</span>Tim Vink<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">small</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+{% endif %}
+</code></pre></div>
+
+
+<p>2) In <code>mkdocs.yml</code> make sure to specify the custom directory with the theme overrides:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">theme</span><span class="o">:</span>
+    <span class="n">name</span><span class="o">:</span> <span class="n">mkdocs</span>
+    <span class="n">custom_dir</span><span class="o">:</span> <span class="n">docs</span><span class="o">/</span><span class="n">overrides</span>
 </code></pre></div>
 
 
@@ -438,19 +512,23 @@
 </code></pre></div>
 
 
-<p>Alternatively, you could use the simple pre-formatted <code>&lt;span class='git-page-authors git-authors'&gt;&lt;/span&gt;</code> to insert a summary of the authors.</p>
+<p>Alternatively, you could use the simple pre-formatted <code>&lt;span class='git-page-authors git-authors'&gt;&lt;a href='mailto:vinktim@gmail.com'&gt;Tim Vink&lt;/a&gt;&lt;/span&gt;</code> to insert a summary of the authors.</p>
                 
               
-              
+
+  
     <div class="md-source-date">
-    <small>
-        Authors: <span class='git-page-authors git-authors'></span>
-    </small>
-  </div>
-    
+      <small>
+          Authors: <span class='git-page-authors git-authors'><a href='mailto:vinktim@gmail.com'>Tim Vink</a></span>
+      </small>
+    </div>
+  
+
+              
+                
 
 
-
+              
             </article>
           </div>
         </div>
